@@ -5,7 +5,7 @@ import torch
 import numpy as np
 import json
 from torch.utils.data import DataLoader
-import open3d as o3d
+import trimesh
 
 from tensorboardX import SummaryWriter
 
@@ -15,6 +15,18 @@ from utils.general_utils import serialize_to_list, storePly, fetchPly
 from utils.graphics_utils import rand_point_on_mesh
 from scene.gaussian_model import GaussianModel
 from scene.dataset import get_dataset_type, AVRexDataset
+
+
+def write_triangle_mesh(mesh_path, verts, faces):
+    mesh = trimesh.Trimesh(vertices=verts, faces=faces, process=False)
+    mesh.export(mesh_path)
+
+
+def read_triangle_mesh(mesh_path):
+    mesh = trimesh.load(mesh_path, process=False, force='mesh')
+    verts = np.array(mesh.vertices).astype(np.float32)
+    faces = np.array(mesh.faces).astype(np.float32)
+    return verts, faces
 
 class Scene:
     gaussians: GaussianModel
@@ -57,7 +69,8 @@ class Scene:
             dataset=trainset,
             batch_size=1,
             shuffle=True,
-            num_workers=8,
+            # Single-process loading is slower but more stable on shared cluster filesystems.
+            num_workers=0,
             persistent_workers=False,
             pin_memory=True,
         )
@@ -108,14 +121,9 @@ class Scene:
             verts = bigpose_model.vertices[0].detach().float().numpy()
             faces = smpl.model.faces
 
-            mesh = o3d.geometry.TriangleMesh()
-            mesh.vertices = o3d.utility.Vector3dVector(verts)
-            mesh.triangles = o3d.utility.Vector3iVector(faces)
-            o3d.io.write_triangle_mesh(temp_path, mesh)
+            write_triangle_mesh(temp_path, verts, faces)
 
-        mesh = o3d.io.read_triangle_mesh(path.join(args.data_dir, 'gaussian/template.ply'))
-        verts = np.array(mesh.vertices).astype(np.float32)
-        faces = np.array(mesh.triangles).astype(np.float32)
+        verts, faces = read_triangle_mesh(path.join(args.data_dir, 'gaussian/template.ply'))
 
         if path.exists(xyz_path):
             xyz = np.array(fetchPly(xyz_path)[0], dtype=np.float32)

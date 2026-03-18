@@ -13,15 +13,12 @@ import csv
 import torch
 import imageio.v3 as iio
 
-stm = None
 
-def data_to_cam(data: dict, non_blocking=True):
+def data_to_cam(data: dict, non_blocking=False):
     img_list = ['image', 'mask', 'mask_boundary']
     tensor_list = ['K', 'w2c']
     const_list = ['height', 'width', 'frame_id', 'cam_id', 'idx']
     cpu_list = ['pose', 'beta', 'Rh', 'Th']
-    global stm
-    if stm is None: stm = torch.cuda.Stream()
     for k, v in data.items():
         if not (isinstance(v, torch.Tensor) or isinstance(v, np.ndarray)): continue
 
@@ -32,8 +29,8 @@ def data_to_cam(data: dict, non_blocking=True):
         elif k in const_list:
             data[k] = v.squeeze().item()
         elif k in img_list:
-            with torch.cuda.stream(stm):
-                data[k] = torch.as_tensor(v).squeeze().cuda(non_blocking=non_blocking)
+            # Keep H2D copies on the default stream to avoid races with training kernels.
+            data[k] = torch.as_tensor(v).squeeze().cuda(non_blocking=non_blocking)
     return data
 
 def get_dataset_type(datadir):

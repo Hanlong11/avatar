@@ -3,16 +3,23 @@
 import math
 import numpy as np
 import torch
+import trimesh
 
 
 def rand_point_on_mesh(vert, face, pts_num=7000, init_factor=5):
-    import open3d as o3d
-    mesh = o3d.geometry.TriangleMesh()
-    mesh.vertices = o3d.utility.Vector3dVector(vert)
-    mesh.triangles = o3d.utility.Vector3iVector(face)
-    point_cloud = mesh.sample_points_poisson_disk(number_of_points=pts_num, init_factor=init_factor)
-    point_cloud = np.asarray(point_cloud.points)
-    return point_cloud
+    mesh = trimesh.Trimesh(vertices=vert, faces=face, process=False)
+    try:
+        import open3d as o3d
+
+        o3d_mesh = o3d.geometry.TriangleMesh()
+        o3d_mesh.vertices = o3d.utility.Vector3dVector(vert)
+        o3d_mesh.triangles = o3d.utility.Vector3iVector(face)
+        point_cloud = o3d_mesh.sample_points_poisson_disk(number_of_points=pts_num, init_factor=init_factor)
+        return np.asarray(point_cloud.points)
+    except Exception:
+        # Fallback for headless clusters where Open3D fails to load libGL.
+        points, _ = trimesh.sample.sample_surface_even(mesh, count=pts_num)
+        return points.astype(np.float32)
 
 
 def polar_decomposition_newton_schulz(A, iteration=4):
