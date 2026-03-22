@@ -506,7 +506,7 @@ class GaussianModel:
 
         self.init()
 
-    def training_setup(self, args: Config, scene_scale):
+    def training_setup(self, args: Config, scene_scale, resume_iteration=0):
         eps=1e-15 
         betas = (1 - 1 * (1 - 0.9), 1 - 1 * (1 - 0.999))
         decay = 0.001
@@ -547,6 +547,13 @@ class GaussianModel:
 
         self.optimizers = optimizers
         self.schedulers = schedulers
+
+        if resume_iteration > 0:
+            for scheduler in self.schedulers:
+                scheduler.last_epoch = resume_iteration
+                gamma = scheduler.gamma
+                for param_group, base_lr in zip(scheduler.optimizer.param_groups, scheduler.base_lrs):
+                    param_group['lr'] = base_lr * (gamma ** resume_iteration)
 
     def optimizer_step(self):
         for optimizer in self.optimizers.values():

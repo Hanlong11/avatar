@@ -4,6 +4,7 @@ __pycache__
 tmp
 logs/
 output/
+render/
 subject02/
 smpl_model/
 script/PointInterpolant

@@ -31,11 +31,20 @@ from utils.general_utils import safe_state
 from utils.loss_utils import l1_loss, psnr, lpips_loss, dxyz_smooth_loss, gaussian_scaling_loss
 from utils.image_utils import crop_image
 
-def training(args: Config):
+def training(args: Config, resume_checkpoint=''):
 
     gaussians = GaussianModel()
     scene = Scene(args, gaussians)    
-    gaussians.training_setup(args, scene.scene_scale)
+
+    first_iter = 0
+    if resume_checkpoint:
+        print(f'Loading checkpoint from {resume_checkpoint}')
+        load_data = torch.load(resume_checkpoint, weights_only=False)
+        first_iter = int(load_data.get('iteration', 0))
+        gaussians.restore(load_data)
+        print(f'Resuming from ITER {first_iter}')
+
+    gaussians.training_setup(args, scene.scene_scale, resume_iteration=first_iter)
 
     visualizer = Visualizer(in_training=True)
     visualizer.net_init(args.ip, args.port)
@@ -45,12 +54,10 @@ def training(args: Config):
     background = torch.as_tensor(args.background).float().cuda()
 
     ema_vis_loss, ema_lpips_loss = 0.0, 0.0
-    first_iter = 0
     progress_bar = tqdm(range(0, args.iterations), initial=first_iter, desc="TP")
-    first_iter += 1
     trainloader_iter = iter(scene.trainloader)
     
-    for iteration in range(first_iter, args.iterations + 1):     
+    for iteration in range(first_iter + 1, args.iterations + 1):     
         if iteration % 30 == 0:
             visualizer.is_send_initial_data = True
             visualizer.visualizing()
@@ -100,9 +107,6 @@ def training(args: Config):
             gaussians.sh_degree += 1
             print(f'SH degree: {gaussians.sh_degree}')
 
-        loss_dict = dict(l1_loss=l1loss, lpips_loss=lpipsloss, dxyzsmooth_loss=dxyzsmoothloss, scaling_loss=scaling_loss)
-        training_report(scene, gaussians, iteration, args.test_iterations, loss_dict, background)
-
         # optimizer step
         gaussians.optimizer_step()
 
@@ -120,6 +124,9 @@ def training(args: Config):
             save_data = gaussians.capture()
             save_data['iteration'] = iteration
             torch.save(save_data, path.join(args.out_dir, 'chkpnt' + str(iteration) + '.pth'))
+
+        loss_dict = dict(l1_loss=l1loss, lpips_loss=lpipsloss, dxyzsmooth_loss=dxyzsmoothloss, scaling_loss=scaling_loss)
+        training_report(scene, gaussians, iteration, args.test_iterations, loss_dict, background)
 
 report_cnt = 0
 report_data = {}
@@ -191,6 +198,7 @@ if __name__ == "__main__":
     parser.add_argument('--out_dir', type=str, default='')
     parser.add_argument('--ip', type=str, default='127.0.0.1')
     parser.add_argument('--port', type=int, default=23456)
+    parser.add_argument('--resume_checkpoint', type=str, default='')
     pargs = parser.parse_args(sys.argv[1:])
 
     args = OmegaConf.load(pargs.config)
@@ -207,4 +215,4 @@ if __name__ == "__main__":
 
     torch.backends.cuda.matmul.allow_tf32 = True
     torch.autograd.set_detect_anomaly(args.detect_anomaly)
-    training(args)
+    training(args, resume_checkpoint=pargs.resume_checkpoint)

@@ -142,7 +142,8 @@ def testing_dataset(gaussians: GaussianModel, out_dir, dataset, background):
         dataset=dataset,
         batch_size=1,
         shuffle=False,
-        num_workers=8,
+        # Single-process loading is slower but more stable on shared cluster filesystems.
+        num_workers=0,
         pin_memory=True,
     )
 

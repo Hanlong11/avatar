@@ -1,7 +1,7 @@
 seed: 0
 detect_anomaly: false
-test_iterations: [100_000, 200_000, 300_000, 400_000, 500_000, 600_000, 700_000]
-checkpoint_iterations: [50_000, 100_000, 150_000, 200_000, 250_000, 300_000, 350_000, 400_000, 450_000, 500_000, 550_000, 600_000, 650_000, 700_000, 750_000]
+test_iterations: []
+checkpoint_iterations: []
 
 smpl_pkl_path: ./smpl_model/smplx/SMPLX_NEUTRAL.npz
 
@@ -17,9 +17,9 @@ image_scaling: 1
 data_in_memory: false
 
 test:
-  cam_ids: [18]
+  cam_ids: [0]
   num_frame: 500
-  begin_ith_frame: 0
+  begin_ith_frame: 2500
   frame_interval: 1
   image_scaling: 1
 
