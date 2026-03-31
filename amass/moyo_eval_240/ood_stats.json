@@ -1,0 +1,38 @@
+[
+  {
+    "name": "moyo_scorpion",
+    "frames": 240,
+    "mean_abs_z": 2.378056287765503,
+    "max_abs_z": 15.519552230834961,
+    "frames_any_component_over_2sigma": 0.9,
+    "mean_excess_over_2sigma": 1.0001307725906372,
+    "max_excess_over_2sigma": 13.519552230834961
+  },
+  {
+    "name": "moyo_cockerel",
+    "frames": 240,
+    "mean_abs_z": 4.541258811950684,
+    "max_abs_z": 22.302021026611328,
+    "frames_any_component_over_2sigma": 1.0,
+    "mean_excess_over_2sigma": 2.840244770050049,
+    "max_excess_over_2sigma": 20.302021026611328
+  },
+  {
+    "name": "moyo_rajakapotasana",
+    "frames": 240,
+    "mean_abs_z": 4.63345193862915,
+    "max_abs_z": 27.443532943725586,
+    "frames_any_component_over_2sigma": 1.0,
+    "mean_excess_over_2sigma": 2.86834979057312,
+    "max_excess_over_2sigma": 25.443532943725586
+  },
+  {
+    "name": "moyo_split",
+    "frames": 240,
+    "mean_abs_z": 2.033742666244507,
+    "max_abs_z": 9.641876220703125,
+    "frames_any_component_over_2sigma": 1.0,
+    "mean_excess_over_2sigma": 0.7523018717765808,
+    "max_excess_over_2sigma": 7.641876220703125
+  }
+]

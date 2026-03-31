@@ -8,6 +8,9 @@ class ConfigTest:
     begin_ith_frame = 0
     frame_interval = 1
     image_scaling = 1
+    use_pca = False
+    pca_num = 20
+    pca_sigma = 2.0
 
 @dataclass
 class Config:

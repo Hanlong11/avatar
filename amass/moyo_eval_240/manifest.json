@@ -1,0 +1,98 @@
+[
+  {
+    "name": "moyo_scorpion",
+    "source_member": "train/221004/03596/221004_yogi_nexus_body_hands_03596_Scorpion_pose_or_vrischikasana-a_stageii.npz",
+    "raw_extracted_path": "/home/hanlong/project/mmlphuman/amass/MOYO_smplx_neutral/train/221004/03596/221004_yogi_nexus_body_hands_03596_Scorpion_pose_or_vrischikasana-a_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/moyo_eval_240/moyo_scorpion.npz",
+    "original_num_frames": 2613,
+    "window_start": 2198,
+    "window_end": 2438,
+    "aligned_anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ],
+    "raw_trans_start": [
+      0.01112257782369852,
+      0.8777092099189758,
+      0.7417861819267273
+    ],
+    "aligned_trans_start": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "moyo_cockerel",
+    "source_member": "train/221004/03596/221004_yogi_nexus_body_hands_03596_Cockerel_Pose-b_stageii.npz",
+    "raw_extracted_path": "/home/hanlong/project/mmlphuman/amass/MOYO_smplx_neutral/train/221004/03596/221004_yogi_nexus_body_hands_03596_Cockerel_Pose-b_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/moyo_eval_240/moyo_cockerel.npz",
+    "original_num_frames": 3694,
+    "window_start": 800,
+    "window_end": 1040,
+    "aligned_anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ],
+    "raw_trans_start": [
+      0.01179928332567215,
+      0.9587363004684448,
+      0.1440141350030899
+    ],
+    "aligned_trans_start": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "moyo_rajakapotasana",
+    "source_member": "train/221004/03596/221004_yogi_nexus_body_hands_03596_Rajakapotasana-b_stageii.npz",
+    "raw_extracted_path": "/home/hanlong/project/mmlphuman/amass/MOYO_smplx_neutral/train/221004/03596/221004_yogi_nexus_body_hands_03596_Rajakapotasana-b_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/moyo_eval_240/moyo_rajakapotasana.npz",
+    "original_num_frames": 3119,
+    "window_start": 1767,
+    "window_end": 2007,
+    "aligned_anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ],
+    "raw_trans_start": [
+      0.02124037593603134,
+      0.6069263219833374,
+      0.32797321677207947
+    ],
+    "aligned_trans_start": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "moyo_split",
+    "source_member": "train/221004/03596/221004_yogi_nexus_body_hands_03596_Split_pose-c_stageii.npz",
+    "raw_extracted_path": "/home/hanlong/project/mmlphuman/amass/MOYO_smplx_neutral/train/221004/03596/221004_yogi_nexus_body_hands_03596_Split_pose-c_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/moyo_eval_240/moyo_split.npz",
+    "original_num_frames": 2409,
+    "window_start": 2024,
+    "window_end": 2264,
+    "aligned_anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ],
+    "raw_trans_start": [
+      0.0858253687620163,
+      0.6151754856109619,
+      0.15307560563087463
+    ],
+    "aligned_trans_start": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  }
+]

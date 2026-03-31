@@ -22,7 +22,7 @@ test:
   begin_ith_frame: 2500
   frame_interval: 1
   image_scaling: 1
-  use_pca: true
+  use_pca: false
   pca_num: 20
   pca_sigma: 2.0
 

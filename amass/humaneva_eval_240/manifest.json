@@ -1,0 +1,54 @@
+[
+  {
+    "name": "humaneva_walk_s2",
+    "source": "/home/hanlong/project/mmlphuman/amass/HumanEva_extracted/HumanEva/S2/Walking_1_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/humaneva_eval_240/humaneva_walk_s2.npz",
+    "frames_original": 1897,
+    "window_start": 193,
+    "window_end": 433,
+    "anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "humaneva_walk_s3",
+    "source": "/home/hanlong/project/mmlphuman/amass/HumanEva_extracted/HumanEva/S3/Walking_3_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/humaneva_eval_240/humaneva_walk_s3.npz",
+    "frames_original": 2359,
+    "window_start": 317,
+    "window_end": 557,
+    "anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "humaneva_gesture_s3",
+    "source": "/home/hanlong/project/mmlphuman/amass/HumanEva_extracted/HumanEva/S3/Gestures_1_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/humaneva_eval_240/humaneva_gesture_s3.npz",
+    "frames_original": 3353,
+    "window_start": 1700,
+    "window_end": 1940,
+    "anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  },
+  {
+    "name": "humaneva_jog_s3",
+    "source": "/home/hanlong/project/mmlphuman/amass/HumanEva_extracted/HumanEva/S3/Jog_1_stageii.npz",
+    "eval_npz": "/home/hanlong/project/mmlphuman/amass/humaneva_eval_240/humaneva_jog_s3.npz",
+    "frames_original": 2695,
+    "window_start": 1652,
+    "window_end": 1892,
+    "anchor": [
+      0.8262824416160583,
+      0.20762747526168823,
+      -1.8189811706542969
+    ]
+  }
+]

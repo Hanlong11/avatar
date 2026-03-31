@@ -97,6 +97,8 @@ class GaussianModel:
         self.is_gsparam_bs = False  # whether to use Gaussian property basis
 
         self.is_test = False        # whether to use PCA 
+        self.test_pca_num = 20
+        self.test_pca_sigma = 2.0
 
         self.setup_functions()
 
@@ -286,10 +288,10 @@ class GaussianModel:
     def get_joint_features(self):
 
         if self.is_test:
-            sigma_pca = 2.0
             features = self.smpl_poses_cuda[1*3:22*3][None]
             lowdim_pose_conds = self.pca.transform(features)
             std = self.pca_std
+            sigma_pca = self.test_pca_sigma
             lowdim_pose_conds = torch.maximum(lowdim_pose_conds, -sigma_pca * std)
             lowdim_pose_conds = torch.minimum(lowdim_pose_conds, sigma_pca * std)
             features = self.pca.inverse_transform(lowdim_pose_conds).reshape(-1)
@@ -307,7 +309,7 @@ class GaussianModel:
         pose_set = torch.stack(pose_set, dim=0).reshape(N_pose,21,3).cpu().numpy()
         features = pose_set.reshape(N_pose, -1)
 
-        pca_num = 20
+        pca_num = self.test_pca_num
 
         features = torch.as_tensor(features).cuda()
         from torch_pca import PCA
@@ -315,7 +317,7 @@ class GaussianModel:
         self.pca.fit(features)
         self.pca_std = torch.sqrt(self.pca.explained_variance_)
 
-        print(f'Use PCA components: {pca_num}')
+        print(f'Use PCA components: {pca_num}, sigma: {self.test_pca_sigma}')
 
     @property
     def get_encoded_feature(self):

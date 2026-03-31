@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -32,7 +33,15 @@ def to_tensor(image: np.ndarray, device: torch.device) -> torch.Tensor:
 
 
 def main():
-    data_dir = Path("/home/hanlong/project/mmlphuman/render/subject02_trainview")
+    parser = argparse.ArgumentParser(description="Evaluate a rendered directory with gt/result/mask subfolders.")
+    parser.add_argument(
+        "--data_dir",
+        type=str,
+        default="/home/hanlong/project/mmlphuman/render/subject02_trainview",
+    )
+    pargs = parser.parse_args()
+
+    data_dir = Path(pargs.data_dir)
     result_dir = data_dir / "result"
     gt_dir = data_dir / "gt"
     mask_dir = data_dir / "mask"

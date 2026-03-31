@@ -1,0 +1,17 @@
+[
+  {
+    "file": "extreme_backbend_twist.npz",
+    "frames": 240,
+    "description": "Strong backbend with torso twist and overhead arm sweep."
+  },
+  {
+    "file": "high_kick_balance.npz",
+    "frames": 240,
+    "description": "Alternating high kicks with side balance and counter-arm motion."
+  },
+  {
+    "file": "spin_punch_combo.npz",
+    "frames": 240,
+    "description": "Fast global spin with alternating jab-like upper-body motion."
+  }
+]

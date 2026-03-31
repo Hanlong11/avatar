@@ -175,8 +175,12 @@ def testing(args: Config):
     init_smpl_pose()
 
     gaussians = load_model(args.model_dir)
-    gaussians.is_test = args.test.is_test
-    gaussians.prepare_test()
+    use_pca = bool(getattr(args.test, 'use_pca', args.test.is_test))
+    gaussians.is_test = use_pca
+    gaussians.test_pca_num = int(getattr(args.test, 'pca_num', 20))
+    gaussians.test_pca_sigma = float(getattr(args.test, 'pca_sigma', 2.0))
+    if use_pca:
+        gaussians.prepare_test()
     background = torch.as_tensor(np.array(args.background)).float().cuda()
 
     # Dataset
